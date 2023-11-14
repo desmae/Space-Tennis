@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    public float minY = -3.5f; // Adjust this based on your scene
+    public float maxY = 3.5f;  // Adjust this based on your scene
     private Rigidbody2D rb;
     public bool player1; // is this player 1?
     public float playerSpeed; // player direction
@@ -17,6 +19,7 @@ public class PlayerBehavior : MonoBehaviour
     void Update()
     {
         Movement(playerSpeed);
+        
     }
     // Player movement
     void Movement(float moveSpeed)
@@ -30,7 +33,14 @@ public class PlayerBehavior : MonoBehaviour
             // I implemented the "Horizontal" axis into Vertical2 to save on coding space, using Vertical2 for player 2.
             direction = Input.GetAxisRaw("Vertical2");
         }
-        rb.velocity = new Vector2(rb.velocity.x, direction * moveSpeed);
+        float newYPosition = Mathf.Clamp(rb.position.y + direction * moveSpeed * Time.deltaTime, minY, maxY);
+        rb.MovePosition(new Vector2(rb.position.x, newYPosition));
     }
-
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Paddle Touched Wall");
+        }
+    }
 }
