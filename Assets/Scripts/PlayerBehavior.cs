@@ -8,8 +8,10 @@ public class PlayerBehavior : MonoBehaviour
     public float maxY = 3.5f;  // Adjust this based on your scene
     private Rigidbody2D rb;
     public bool player1; // is this player 1?
-    public float playerSpeed; // player direction
-    private float direction; 
+    public float playerSpeed; 
+    float oldPlayerSpeed; // old player speed for dashing mechanic
+
+    private float direction; // player direction
 
     void Start()
     {
@@ -18,10 +20,43 @@ public class PlayerBehavior : MonoBehaviour
 
     void Update()
     {
+        Dash();
+    }
+    private void FixedUpdate() 
+    {
         Movement(playerSpeed);
-        
     }
     // Player movement
+    void Dash()
+    {
+        if (player1)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                oldPlayerSpeed = playerSpeed;
+                playerSpeed *= 1.4f;
+
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                playerSpeed = oldPlayerSpeed;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightShift))
+            {
+                oldPlayerSpeed = playerSpeed;
+                playerSpeed *= 1.4f;
+
+            }
+            else if (Input.GetKeyUp(KeyCode.RightShift))
+            {
+                playerSpeed = oldPlayerSpeed;
+            }
+        }
+        
+    }
     void Movement(float moveSpeed)
     {
         if (player1)

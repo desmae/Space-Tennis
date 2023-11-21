@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class BallBehavior : MonoBehaviour
 {
+    public Sprite[] sprites; // all the different sprites of the ball
+    public Material[] materials; // all the different materials of the ball
+    public static bool isSuper; // is the ball a super ball? Will it give two points?
     float randomAngle; // random angle that the ball chooses when it hits a paddle (code only)
     private Rigidbody2D rb;
     public float ballSpeed; // speed of the ball (change in inspector)
+
     public Vector2 direction; // direction of the ball (code only, visible in inspector and affectable by external scripts just in case)
     void Start()
     {
@@ -20,6 +24,15 @@ public class BallBehavior : MonoBehaviour
     void Update()
     {
         rb.velocity = rb.velocity.normalized * ballSpeed;
+
+        if (ballSpeed >= 10)
+        {
+            SuperBall();
+        }
+        else
+        {
+            RegularBall();
+        }
     }
 
     // flips a theoretical coin to see which direction the ball travels in
@@ -50,12 +63,45 @@ public class BallBehavior : MonoBehaviour
         ResetBall();
         Invoke("GameBegin", 1);
     }
-    void Dash()
+    void RegularBall()
     {
-        // to be implemented during alpha phase in the case that we would like to be able to let players double their paddle's speed to be able to catch the ball in later stages (shift key)
-        // consider the ball score two points instead of one if it is fast enough (regular ball speed is 4, if it's 10, do double points). 
-        // ^^^^^^ Higher stakes, faster gameplay, more of a reward if you win.
+        if (!isSuper) return;
+
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+        TrailRenderer trail = gameObject.GetComponent<TrailRenderer>();
+        
+        if (sprite.sprite != sprites[0])
+        {
+            sprite.sprite = sprites[0];
+        }
+        if (sprite.material != materials[0])
+        {
+            sprite.material = materials[0];
+            trail.material = materials[0];
+
+        }
+        isSuper = false;
     }
+    void SuperBall()
+    {
+        if (isSuper) return;
+
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+        TrailRenderer trail = gameObject.GetComponent<TrailRenderer>();
+
+        if (sprite.sprite != sprites[1])
+        {
+            sprite.sprite = sprites[1]; 
+        }
+        if (sprite.material != materials[1])
+        {
+            sprite.material = materials[1];
+            trail.material = materials[1];
+        }
+        isSuper = true;
+
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))

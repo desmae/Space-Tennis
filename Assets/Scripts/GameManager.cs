@@ -22,14 +22,37 @@ public class GameManager : MonoBehaviour
     {
         if (wallID == "RightWall")
         {
+            ScoreAdder1();
+        }
+        else
+        {
+            ScoreAdder2();
+        }
+    }
+    static void ScoreAdder1()
+    {
+        // This adds the score in Score() but also applies the new ball rules
+        if (BallBehavior.isSuper == true)
+        {
+            PlayerScore1 += 2;
+        }
+        else
+        {
             PlayerScore1++;
+        }
+    }
+    static void ScoreAdder2()
+    {
+        // This adds the score in Score() but also applies the new ball rules
+        if (BallBehavior.isSuper == true)
+        {
+            PlayerScore2 += 2;
         }
         else
         {
             PlayerScore2++;
         }
     }
-
     void OnGUI()
     {
         GUI.skin = layout;
