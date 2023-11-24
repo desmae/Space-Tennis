@@ -39,15 +39,12 @@ public class BallBehavior : MonoBehaviour
     void GameBegin()
     {
         float selection = Random.Range(1, 3); // three is not included according to my tests
-        Debug.Log($"{selection} was chosen as a direction.");
         if (selection == 1)
         {
-            Debug.Log("Ball going left");
             rb.velocity = Vector2.left * ballSpeed;
         }
         else
         {
-            Debug.Log("Ball going right");
             rb.velocity = Vector2.right * ballSpeed;
         }
     }
@@ -107,7 +104,6 @@ public class BallBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             randomAngle = Random.Range(-15f, 15f);
-            Debug.Log($"Touched paddle:{other.gameObject.name}");
             direction = new Vector2(Random.Range(0, 2) == 0 ? -1 : 1,
             Mathf.Tan(randomAngle * Mathf.Deg2Rad)).normalized;
             ballSpeed = ballSpeed * 1.05f;
@@ -116,7 +112,6 @@ public class BallBehavior : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Touched something else:{other.gameObject.name}");
 
         }
     }

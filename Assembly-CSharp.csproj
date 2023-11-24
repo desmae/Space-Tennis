@@ -39,8 +39,12 @@
      <Compile Include="Assets\Scripts\BackgroundScript.cs" />
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\SideWalls.cs" />
+     <Compile Include="Assets\Scripts\OptionsMenu.cs" />
      <Compile Include="Assets\Scripts\BallBehavior.cs" />
+     <Compile Include="Assets\Scripts\Powerups\PowerUpBehavior.cs" />
+     <Compile Include="Assets\PowerUpSpawnerBehavior.cs" />
     <Reference Include="UnityEngine">
         <HintPath>E:\Unity\2020.3.47f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

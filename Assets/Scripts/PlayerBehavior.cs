@@ -11,6 +11,7 @@ public class PlayerBehavior : MonoBehaviour
     public float playerSpeed; 
     float oldPlayerSpeed; // old player speed for dashing mechanic
 
+    public bool slippery; // whether the paddle is slippery
     private float direction; // player direction
 
     void Start()
@@ -61,12 +62,25 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (player1)
         {
-            direction = Input.GetAxisRaw("Vertical1");
+            if (slippery)
+            {
+                direction = Input.GetAxis("Vertical1");
+            }
+            else
+            {
+                direction = Input.GetAxisRaw("Vertical1");
+            }
         }
         else
         {
-            // I implemented the "Horizontal" axis into Vertical2 to save on coding space, using Vertical2 for player 2.
-            direction = Input.GetAxisRaw("Vertical2");
+            if (slippery)
+            {
+                direction = Input.GetAxis("Vertical2");
+            }
+            else
+            {
+                direction = Input.GetAxisRaw("Vertical2");
+            }
         }
         float newYPosition = Mathf.Clamp(rb.position.y + direction * moveSpeed * Time.deltaTime, minY, maxY);
         rb.MovePosition(new Vector2(rb.position.x, newYPosition));
@@ -75,7 +89,6 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Paddle Touched Wall");
         }
     }
 }
