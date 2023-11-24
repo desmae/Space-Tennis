@@ -86,8 +86,8 @@ public class PowerUpBehavior : MonoBehaviour
         }
         else if (powerUpType == PowerUpType.PaddleSpeedUp)
         {
-            paddleBehavior1.playerSpeed += 2;
-            paddleBehavior2.playerSpeed += 2;
+            paddleBehavior1.moveSpeed += 2;
+            paddleBehavior2.moveSpeed += 2;
         }
         else if (powerUpType == PowerUpType.BallSizeDown)
         {
@@ -117,8 +117,8 @@ public class PowerUpBehavior : MonoBehaviour
         paddleBehavior1.slippery = false;
         paddleBehavior2.slippery = false;
 
-        paddleBehavior1.playerSpeed = 6;
-        paddleBehavior2.playerSpeed = 6;
+        paddleBehavior1.moveSpeed = 6;
+        paddleBehavior2.moveSpeed = 6;
 
         paddle1.transform.localScale = new Vector3 (0.1f, 0.2f);
         paddle2.transform.localScale = new Vector3 (0.1f, 0.2f);

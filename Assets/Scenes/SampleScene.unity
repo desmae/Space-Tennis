@@ -427,8 +427,11 @@ MonoBehaviour:
   minY: -3.8
   maxY: 3.8
   player1: 0
-  playerSpeed: 6
   slippery: 0
+  startPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 60
+  aimoveSpeed: 1.7
+  isAI: 1
 --- !u!212 &393377473
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1329,6 +1332,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layout: {fileID: 0}
+  ball: {fileID: 1306027473}
+  Paddle2: {fileID: 393377469}
 --- !u!114 &1306027481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1657,8 +1662,11 @@ MonoBehaviour:
   minY: -3.8
   maxY: 3.8
   player1: 1
-  playerSpeed: 6
   slippery: 0
+  startPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 60
+  aimoveSpeed: 0
+  isAI: 0
 --- !u!50 &2039449857
 Rigidbody2D:
   serializedVersion: 4
