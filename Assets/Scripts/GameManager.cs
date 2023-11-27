@@ -15,12 +15,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject Paddle2;
     PlayerBehavior playerBehavior;
-
+    static BallBehavior ballBehavior;
 
 
     void Awake()
     {
         playerBehavior = ball.GetComponent<PlayerBehavior>();
+        ballBehavior = ball.GetComponent<BallBehavior>();
     }
 
     // Use this for initialization
@@ -36,11 +37,25 @@ public class GameManager : MonoBehaviour
     {
         if (wallID == "RightWall")
         {
-            PlayerScore1++;
+            if (BallBehavior.isSuper)
+            {
+                PlayerScore1 += 2;
+            }
+            else
+            {
+                PlayerScore1++;
+            }
         }
         else
         {
-            PlayerScore2++;
+            if (BallBehavior.isSuper)
+            {
+                PlayerScore2 += 2;
+            }
+            else
+            {
+                PlayerScore2++;
+            }
         }
     }
 
