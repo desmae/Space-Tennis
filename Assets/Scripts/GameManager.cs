@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using TMPro;
+
 using static GameManager;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +11,9 @@ public class GameManager : MonoBehaviour
     public static int PlayerScore1 = 0;
     public static int PlayerScore2 = 0;
 
+    // Text
+    public static Animator statusTextAnimator;
+    public static TextMeshProUGUI statusText;
     public GUISkin layout;
 
     public GameObject ball;
@@ -22,6 +27,8 @@ public class GameManager : MonoBehaviour
     {
         playerBehavior = ball.GetComponent<PlayerBehavior>();
         ballBehavior = ball.GetComponent<BallBehavior>();
+        statusTextAnimator = ball.GetComponent<BallBehavior>().statusTextAnimator;
+        statusText = ball.GetComponent<BallBehavior>().statusText;
     }
 
     // Use this for initialization
@@ -45,6 +52,8 @@ public class GameManager : MonoBehaviour
             {
                 PlayerScore1++;
             }
+            statusText.text = $"Player 1 Scored!";
+            statusTextAnimator.SetTrigger("PlayText");
         }
         else
         {
@@ -56,6 +65,8 @@ public class GameManager : MonoBehaviour
             {
                 PlayerScore2++;
             }
+            statusText.text = $"Player 2 Scored!";
+            statusTextAnimator.SetTrigger("PlayText");
         }
     }
 

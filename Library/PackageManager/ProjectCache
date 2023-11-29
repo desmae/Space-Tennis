@@ -5,27 +5,27 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638354953384032845
-    m_Hash: 1495183850
+      ticks: 638368772955329035
+    m_Hash: 1138581612
   m_LockFileStatus:
     m_FilePath: E:/UnityGames/Space Tennis/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638354953678529926
-    m_Hash: 317225287
+      ticks: 638368772955368932
+    m_Hash: 2168580165
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
   m_Packages:
     m_ResolvedPackages:
-    - packageId: com.unity.2d.animation@5.2.6
+    - packageId: com.unity.2d.animation@5.2.7
       testable: 0
       isDirectDependency: 1
-      version: 5.2.6
+      version: 5.2.7
       source: 1
-      resolvedPath: E:\UnityGames\Space Tennis\Library\PackageCache\com.unity.2d.animation@5.2.6
+      resolvedPath: E:\UnityGames\Space Tennis\Library\PackageCache\com.unity.2d.animation@5.2.7
       assetPath: Packages/com.unity.2d.animation
       name: com.unity.2d.animation
       displayName: 2D Animation
@@ -212,13 +212,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 638034320710000000
-      documentationUrl: 
+      datePublishedTicks: 638179396900000000
+      documentationUrl: https://docs.unity3d.com/Packages/com.unity.2d.animation@5.2/manual/index.html
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/2d.git
-        revision: a9671686b9de6dea33e57b306295bc63aacdb1ed
+        revision: aa2a8793fe6f8a4b07feb9f612a1ddfd1602413e
         path: 
     - packageId: com.unity.2d.pixel-perfect@4.0.1
       testable: 0
@@ -420,7 +420,7 @@ m_PackageAssets:
       - name: com.unity.modules.uielementsnative
         version: 1.0.0
       - name: com.unity.2d.animation
-        version: 5.2.6
+        version: 5.2.7
       - name: com.unity.mathematics
         version: 1.1.0
       - name: com.unity.modules.animation
@@ -990,12 +990,12 @@ m_PackageAssets:
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.rider.git
         revision: b40b39e6834c2915637f431d002d1f3dd8ec9ce5
         path: 
-    - packageId: com.unity.ide.visualstudio@2.0.17
+    - packageId: com.unity.ide.visualstudio@2.0.22
       testable: 0
       isDirectDependency: 1
-      version: 2.0.17
+      version: 2.0.22
       source: 1
-      resolvedPath: E:\UnityGames\Space Tennis\Library\PackageCache\com.unity.ide.visualstudio@2.0.17
+      resolvedPath: E:\UnityGames\Space Tennis\Library\PackageCache\com.unity.ide.visualstudio@2.0.22
       assetPath: Packages/com.unity.ide.visualstudio
       name: com.unity.ide.visualstudio
       displayName: Visual Studio Editor
@@ -1004,7 +1004,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: asset
+      type: assets
       description: Code editor integration for supporting Visual Studio as code editor
         for unity. Adds support for generating csproj files for intellisense purposes,
         auto discovery of installations, etc.
@@ -1088,13 +1088,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 638059987360000000
+      datePublishedTicks: 638326061910000000
       documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.visualstudio@2.0/manual/index.html
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.visualstudio.git
-        revision: 1f126893bfb18ea9661fb15771613e841467073c
+        revision: 700b44077345e97d37d464ff25507638983aed64
         path: 
     - packageId: com.unity.ide.vscode@1.2.5
       testable: 0
@@ -1234,6 +1234,7 @@ m_PackageAssets:
         - 1.3.8
         - 1.3.9
         - 1.4.0
+        - 1.4.1
         - 2.0.1-exp.1
         - 2.0.1-exp.2
         - 2.0.1-pre.12
@@ -1250,6 +1251,7 @@ m_PackageAssets:
         - 1.3.8
         - 1.3.9
         - 1.4.0
+        - 1.4.1
         - 2.0.1-exp.1
         - 2.0.1-exp.2
         - 2.0.1-pre.12

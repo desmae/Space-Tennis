@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class PowerUpBehavior : MonoBehaviour
 {
     public enum PowerUpType {BallSizeUp, SlipperyPaddle, PaddleSpeedUp, BallSizeDown, 
-    PaddleSizeDown, FreePaddle, CenterPaddle, PaddleSizeUp};
+    PaddleSizeDown, CrazyBall, CenterPaddle, PaddleSizeUp};
     public PowerUpType powerUpType;
+
+    // Text stuff
+    public Animator statusTextAnimator;
+    public TextMeshProUGUI statusText;
 
     // other objects
 
@@ -26,7 +30,7 @@ public class PowerUpBehavior : MonoBehaviour
     // Paddle Speed Up: Both paddles become faster
     // Ball Size Down: Ball becomes smaller
     // Paddle Size Down: Paddles both become smaller
-    // Free Paddle: Paddles can both move in the X direction as well as the Y
+    // Crazy Ball: Ball moves in a wider angle when bouncing off of paddles
     // Center Paddle: Paddles are moved closer to the center making the game temporarily more difficult
     void Start()
     {
@@ -55,7 +59,7 @@ public class PowerUpBehavior : MonoBehaviour
         {
             powerUpType = PowerUpType.PaddleSpeedUp;
         }
-        else if (randNum == 30)
+        else if (randNum == 3)
         {
             powerUpType = PowerUpType.BallSizeDown;
         }
@@ -65,11 +69,11 @@ public class PowerUpBehavior : MonoBehaviour
         }
         else if (randNum == 5)
         {
-            powerUpType = PowerUpType.FreePaddle;
+            powerUpType = PowerUpType.CenterPaddle;
         }
         else if (randNum == 6)
         {
-            powerUpType = PowerUpType.CenterPaddle;
+            powerUpType = PowerUpType.CrazyBall;
         }
 
     }
@@ -86,8 +90,8 @@ public class PowerUpBehavior : MonoBehaviour
         }
         else if (powerUpType == PowerUpType.PaddleSpeedUp)
         {
-            paddleBehavior1.moveSpeed += 20;
-            paddleBehavior2.moveSpeed += 20;
+            paddleBehavior1.moveSpeed += 3;
+            paddleBehavior2.moveSpeed += 3;
         }
         else if (powerUpType == PowerUpType.BallSizeDown)
         {
@@ -98,14 +102,14 @@ public class PowerUpBehavior : MonoBehaviour
             paddle1.transform.localScale += new Vector3 (0, -0.05f);
             paddle2.transform.localScale += new Vector3 (0, -0.05f);
         }
-        else if (powerUpType == PowerUpType.FreePaddle)
+        else if (powerUpType == PowerUpType.CrazyBall)
         {
-
+            ball.GetComponent<BallBehavior>().randomAngleRange = 45f;
         }
         else if (powerUpType == PowerUpType.CenterPaddle)
         {
             paddle1.transform.position += new Vector3 (2, 0);
-            paddle1.transform.position += new Vector3 (-2, 0);
+            paddle2.transform.position += new Vector3 (-2, 0);
         }
     }
     IEnumerator Reset()
@@ -117,12 +121,20 @@ public class PowerUpBehavior : MonoBehaviour
         paddleBehavior1.slippery = false;
         paddleBehavior2.slippery = false;
 
-        paddleBehavior1.moveSpeed = 30;
-        paddleBehavior2.moveSpeed = 30;
+        paddleBehavior1.moveSpeed = 6;
+        paddleBehavior2.moveSpeed = 6;
 
         paddle1.transform.localScale = new Vector3 (0.1f, 0.2f);
         paddle2.transform.localScale = new Vector3 (0.1f, 0.2f);
+
+        paddle1.transform.position = new Vector3 (-8.5f, paddle1.transform.position.y);
+        paddle2.transform.position = new Vector3 (8.5f, paddle2.transform.position.y);
+        ball.GetComponent<BallBehavior>().randomAngleRange = 15f;
+
         Debug.Log("reset");
+        statusText.text = $"Power Up Expired!";
+        statusTextAnimator.SetTrigger("PlayText");
+
         yield return new WaitForSeconds(1);
         Destroy(gameObject); // deletes the game object here for performance
     }
@@ -131,7 +143,8 @@ public class PowerUpBehavior : MonoBehaviour
         if (!other.gameObject.CompareTag("Ball")) return;
         PowerUp();
         Debug.Log($"powerup chosen {powerUpType}");
-
+        statusText.text = $"{powerUpType}!";
+        statusTextAnimator.SetTrigger("PlayText");
         StartCoroutine(Reset());
         gameObject.transform.position = new Vector2 (10000, 10000); // garbage collection location
     }

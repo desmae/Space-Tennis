@@ -28,11 +28,14 @@ public class PlayerBehavior : MonoBehaviour
         }
         startPosition = transform.position;
     }
-
+    private void FixedUpdate() 
+    {
+        Movement();
+    }
     void Update()
     {
         Dash();
-        Movement();
+
 
         if (isAI)
         {
@@ -41,9 +44,9 @@ public class PlayerBehavior : MonoBehaviour
             maxY = 3.5f;
             minY = -3.5f;
 
+            rb.velocity = new Vector2(rb.velocity.x, direction * aimoveSpeed);
 
         }
-        rb.velocity = new Vector2(rb.velocity.x, direction * aimoveSpeed);
     }
   
     // Player movement
@@ -64,18 +67,20 @@ public class PlayerBehavior : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.RightShift))
+            if (!isAI)
             {
-                oldPlayerSpeed = moveSpeed;
-                moveSpeed *= 1.4f;
+                if (Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    oldPlayerSpeed = moveSpeed;
+                    moveSpeed *= 1.4f;
 
-            }
-            else if (Input.GetKeyUp(KeyCode.RightShift))
-            {
-                moveSpeed = oldPlayerSpeed;
+                }
+                else if (Input.GetKeyUp(KeyCode.RightShift))
+                {
+                    moveSpeed = oldPlayerSpeed;
+                }
             }
         }
-        
     }
     void Movement()
     {
