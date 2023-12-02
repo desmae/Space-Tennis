@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     static BallBehavior ballBehavior;
 
     // Define the winning score as a variable
-    public int winningScore = 0;
+    public int winningScore = 10;
 
     void Awake()
     {
