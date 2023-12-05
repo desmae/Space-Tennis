@@ -13,6 +13,7 @@ public class BallBehavior : MonoBehaviour
 
     // text
     public Animator statusTextAnimator;
+    public Animator ballAnimator;
     public TextMeshProUGUI statusText;
     // AUDIO
 
@@ -64,6 +65,7 @@ public class BallBehavior : MonoBehaviour
         rb.velocity = new Vector2(0, 0);
         transform.position = Vector2.zero;
         ballSpeed = 4;
+        ballAnimator.SetTrigger("BallSpawning");
     }
 
     void RestartGame()

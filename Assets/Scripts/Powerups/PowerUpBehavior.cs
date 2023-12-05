@@ -18,6 +18,7 @@ public class PowerUpBehavior : MonoBehaviour
     public GameObject paddle1;
     public GameObject paddle2;
 
+    public Animator powerUpAnimator;
     public PowerUpSpawnerBehavior powerUpSpawnerBehavior;
 
     public PlayerBehavior paddleBehavior1;
@@ -146,6 +147,13 @@ public class PowerUpBehavior : MonoBehaviour
         statusText.text = $"{powerUpType}!";
         statusTextAnimator.SetTrigger("PlayText");
         StartCoroutine(Reset());
+        StartCoroutine(GarbageCollection());
+    }
+    IEnumerator GarbageCollection()
+    {
+        powerUpAnimator.SetBool("PowerUpCollected", true);
+        yield return new WaitForSeconds(0.67f);
         gameObject.transform.position = new Vector2 (10000, 10000); // garbage collection location
+
     }
 }
