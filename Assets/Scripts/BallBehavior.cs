@@ -1,16 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class BallBehavior : MonoBehaviour
 {
+    public Sprite[] sprites; // all the different sprites of the ball
+    public Material[] materials; // all the different materials of the ball
+    public static bool isSuper; // is the ball a super ball? Will it give two points?
     float randomAngle; // random angle that the ball chooses when it hits a paddle (code only)
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     public float ballSpeed; // speed of the ball (change in inspector)
+
+    // text
+    public Animator statusTextAnimator;
+    public Animator ballAnimator;
+    public TextMeshProUGUI statusText;
+    // AUDIO
+
+    public AudioClip powerUpSound;
+    public AudioClip regularBallSound;
+    public AudioClip superBallSound;
+    public AudioClip ballBounceSound;
     public Vector2 direction; // direction of the ball (code only, visible in inspector and affectable by external scripts just in case)
+
+    public float randomAngleRange;
     void Start()
     {
-        randomAngle = Random.Range(-15f, 15f);
+        randomAngle = Random.Range(-randomAngleRange, randomAngleRange);
         rb = GetComponent<Rigidbody2D>();
         GameBegin();
         direction = new Vector2(Random.Range(0, 2) == 0 ? -1 : 1,
@@ -19,22 +35,30 @@ public class BallBehavior : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = rb.velocity.normalized * ballSpeed;
+        if (ballSpeed >= 10)
+        {
+            SuperBall();
+        }
+        else
+        {
+            RegularBall();
+        }
     }
+
+    //public void SuperBallTrue()
+    
+       
 
     // flips a theoretical coin to see which direction the ball travels in
     void GameBegin()
     {
         float selection = Random.Range(1, 3); // three is not included according to my tests
-        Debug.Log($"{selection} was chosen as a direction.");
         if (selection == 1)
         {
-            Debug.Log("Ball going left");
             rb.velocity = Vector2.left * ballSpeed;
         }
         else
         {
-            Debug.Log("Ball going right");
             rb.velocity = Vector2.right * ballSpeed;
         }
     }
@@ -43,6 +67,7 @@ public class BallBehavior : MonoBehaviour
         rb.velocity = new Vector2(0, 0);
         transform.position = Vector2.zero;
         ballSpeed = 4;
+        ballAnimator.SetTrigger("BallSpawning");
     }
 
     void RestartGame()
@@ -50,28 +75,99 @@ public class BallBehavior : MonoBehaviour
         ResetBall();
         Invoke("GameBegin", 1);
     }
-    void Dash()
+    void RegularBall()
     {
-        // to be implemented during alpha phase in the case that we would like to be able to let players double their paddle's speed to be able to catch the ball in later stages (shift key)
-        // consider the ball score two points instead of one if it is fast enough (regular ball speed is 4, if it's 10, do double points). 
-        // ^^^^^^ Higher stakes, faster gameplay, more of a reward if you win.
+        if (!isSuper) return;
+
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+        TrailRenderer trail = gameObject.GetComponent<TrailRenderer>();
+
+        if (sprite.sprite != sprites[0])
+        {
+            sprite.sprite = sprites[0];
+        }
+        if (sprite.material != materials[0])
+        {
+            sprite.material = materials[0];
+            trail.material = materials[0];
+
+        }
+        PlayRegularSound();
+        isSuper = false;
+
+    }
+    public void SuperBall()
+    {
+        if (!isSuper) return;
+
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+        TrailRenderer trail = gameObject.GetComponent<TrailRenderer>();
+
+        if (sprite.sprite != sprites[1])
+        {
+            sprite.sprite = sprites[1];
+        }
+        if (sprite.material != materials[1])
+        {
+            sprite.material = materials[1];
+            trail.material = materials[1];
+        }
+       
+        PlaySuperSound();
+        isSuper = false;
+        statusText.text = $"Super Ball!";
+        statusTextAnimator.SetTrigger("PlayText");
+
+
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PowerUp"))
+        {
+            PlayPowerUpSound();
+        }
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             randomAngle = Random.Range(-15f, 15f);
-            Debug.Log($"Touched paddle:{other.gameObject.name}");
             direction = new Vector2(Random.Range(0, 2) == 0 ? -1 : 1,
             Mathf.Tan(randomAngle * Mathf.Deg2Rad)).normalized;
             ballSpeed = ballSpeed * 1.05f;
             rb.velocity = direction * ballSpeed;
-
         }
         else
         {
-            Debug.Log($"Touched something else:{other.gameObject.name}");
 
         }
+        PlayBounceSound();
+
+    }
+    void PlaySuperSound()
+    {
+        GetComponent<AudioSource>().clip = superBallSound;
+        GetComponent<AudioSource>().volume = 0.25f;
+        GetComponent<AudioSource>().Play();
+    }
+    void PlayRegularSound()
+    {
+        GetComponent<AudioSource>().clip = regularBallSound;
+        GetComponent<AudioSource>().volume = 0.25f;
+        GetComponent<AudioSource>().Play();
+    }
+    void PlayPowerUpSound()
+    {
+        GetComponent<AudioSource>().clip = powerUpSound;
+        GetComponent<AudioSource>().volume = 0.1f;
+        GetComponent<AudioSource>().Play();
+    }
+    void PlayBounceSound()
+    {
+        GetComponent<AudioSource>().clip = ballBounceSound;
+        GetComponent<AudioSource>().volume = 0.25f;
+        GetComponent<AudioSource>().Play();
     }
 }
