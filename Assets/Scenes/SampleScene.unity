@@ -788,8 +788,7 @@ MonoBehaviour:
   slippery: 0
   startPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 6
-  aimoveSpeed: 1.7
-  isAI: 1
+  aimoveSpeed: 2.5
 --- !u!212 &393377473
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8198,7 +8197,6 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 6
   aimoveSpeed: 0
-  isAI: 0
 --- !u!50 &2039449857
 Rigidbody2D:
   serializedVersion: 4

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float minY = -3.5f; // Adjust this based on your scene
-    public float maxY = 3.5f;  // Adjust this based on your scene
+    public float minY = -3.8f; // Adjust this based on your scene
+    public float maxY = 3.8f;  // Adjust this based on your scene
     private Rigidbody2D rb;
     public bool player1; // is this player 1?
     float oldPlayerSpeed; // old player speed for dashing mechanic
@@ -16,7 +16,7 @@ public class PlayerBehavior : MonoBehaviour
     private Vector2 forwardDirection;
     public float moveSpeed;
     public float aimoveSpeed;
-    public bool isAI;
+    public static bool isAI = false;
 
     void Start()
     {
@@ -41,8 +41,8 @@ public class PlayerBehavior : MonoBehaviour
         {
             float targetYposition = GetNewYPosition();
             transform.position = new Vector3(transform.position.x, targetYposition, transform.position.z);
-            maxY = 3.5f;
-            minY = -3.5f;
+            maxY = 3.8f;
+            minY = -3.8f;
 
             rb.velocity = new Vector2(rb.velocity.x, direction * aimoveSpeed);
 

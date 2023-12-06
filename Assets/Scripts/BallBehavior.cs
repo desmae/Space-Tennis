@@ -35,8 +35,6 @@ public class BallBehavior : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = rb.velocity.normalized * ballSpeed;
-
         if (ballSpeed >= 10)
         {
             SuperBall();
@@ -46,6 +44,10 @@ public class BallBehavior : MonoBehaviour
             RegularBall();
         }
     }
+
+    //public void SuperBallTrue()
+    
+       
 
     // flips a theoretical coin to see which direction the ball travels in
     void GameBegin()
@@ -79,7 +81,7 @@ public class BallBehavior : MonoBehaviour
 
         SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
         TrailRenderer trail = gameObject.GetComponent<TrailRenderer>();
-        
+
         if (sprite.sprite != sprites[0])
         {
             sprite.sprite = sprites[0];
@@ -94,28 +96,33 @@ public class BallBehavior : MonoBehaviour
         isSuper = false;
 
     }
-    void SuperBall()
+    public void SuperBall()
     {
-        if (isSuper) return;
+        if (!isSuper) return;
 
         SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
         TrailRenderer trail = gameObject.GetComponent<TrailRenderer>();
 
         if (sprite.sprite != sprites[1])
         {
-            sprite.sprite = sprites[1]; 
+            sprite.sprite = sprites[1];
         }
         if (sprite.material != materials[1])
         {
             sprite.material = materials[1];
             trail.material = materials[1];
         }
+       
         PlaySuperSound();
-        isSuper = true;
+        isSuper = false;
         statusText.text = $"Super Ball!";
         statusTextAnimator.SetTrigger("PlayText");
+
+
     }
-    private void OnTriggerEnter2D(Collider2D other) 
+
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PowerUp"))
         {
